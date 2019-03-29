@@ -9,20 +9,12 @@ import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import static com.kopieczek.chester.core.CoordConverter.convert;
+import static com.kopieczek.chester.core.Piece.BLACK_KNIGHT;
+import static com.kopieczek.chester.core.Piece.WHITE_PAWN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class TestBoard {
-    private static Piece WHITE_PAWN = ImmutablePiece.builder()
-            .type(PieceType.PAWN)
-            .color(Color.WHITE)
-            .build();
-
-    private static Piece BLACK_KNIGHT = ImmutablePiece.builder()
-            .type(PieceType.KNIGHT)
-            .color(Color.BLACK)
-            .build();
-
     @Test
     public void test_board_initially_empty() {
         Board board = new Board();

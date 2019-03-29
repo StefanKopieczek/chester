@@ -9,7 +9,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.immutables:value:2.7.4'
     testCompile 'junit:junit:4.12'
 }
 
@@ -22,27 +21,3 @@ idea {
         jdkName = '1.8'
     }
 }
-
-// Support immutables
-def generatedDir = 'out/production/chester/generated'
-idea {
-  mkdir generatedDir
-  module {
-    scopes.PROVIDED.plus += [configurations.annotationProcessor]
-	generatedSourceDirs += file(generatedDir)
-  }
-  project {
-      ipr {
-          withXml { xmlProvider ->
-              def project = xmlProvider.asNode()
-              def compilerConfiguration = project.component.find { it.@name == 'CompilerConfiguration' }
-              if(compilerConfiguration.annotationProcessing) {
-                  compilerConfiguration.remove compilerConfiguration.annotationProcessing
-              }
-              def annotationProcessing = compilerConfiguration.appendNode 'annotationProcessing'
-              annotationProcessing.appendNode 'profile', [default: true, name: 'Default', enabled: true]
-          }
-      }
-  }
-}
-sourceSets.main.java.srcDir new File(generatedDir)
