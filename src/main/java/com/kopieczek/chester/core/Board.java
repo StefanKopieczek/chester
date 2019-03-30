@@ -1,7 +1,6 @@
 package com.kopieczek.chester.core;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Board {
     private final Piece[] pieces = new Piece[64];
