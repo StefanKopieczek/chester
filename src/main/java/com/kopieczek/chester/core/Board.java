@@ -20,10 +20,26 @@ public class Board {
     }
 
     public Collection<Integer> getMoves(int cell) {
+        return get(cell).map(piece -> getMovesForOccupiedCell(cell, piece))
+                        .orElse(Collections.emptyList());
+    }
+
+    private Collection<Integer> getMovesForOccupiedCell(int cell, Piece piece) {
+        switch (piece.getType()) {
+            case PAWN:
+                return getMovesForPawn(cell, piece.getColor());
+            default:
+                throw new IllegalArgumentException("Unknown piece type " + piece.getType());
+        }
+    }
+
+    private Collection<Integer> getMovesForPawn(int cell, Color color) {
         List<Integer> moves = new ArrayList<>();
         if (isEmpty(cell)) {
             return moves;
-        } else if (cell >= 56) {
+        }
+
+        else if (cell >= 56) {
             // Top row; cannot move up
         } else if (!isEmpty(cell + 8)) {
             // Cannot move onto or through a piece ahead
