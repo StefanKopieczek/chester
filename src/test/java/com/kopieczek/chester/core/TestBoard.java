@@ -456,6 +456,244 @@ public class TestBoard {
     }
 
     @Test
+    public void test_white_knight_moves_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d5", WHITE_KNIGHT);
+        });
+        assertMoves(board, "d5", "b6", "c7", "e7", "f6", "f4", "e3", "c3", "b4");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_file_b() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("b5", WHITE_KNIGHT);
+        });
+        assertMoves(board, "b5", "a7", "c7", "d6", "d4", "c3", "a3");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_file_a() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a5", WHITE_KNIGHT);
+        });
+        assertMoves(board, "a5", "b7", "c6", "c4", "b3");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_file_g() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("g5", WHITE_KNIGHT);
+        });
+        assertMoves(board, "g5", "e6", "f7", "h7", "h3", "f3", "e4");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_file_h() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h5", WHITE_KNIGHT);
+        });
+        assertMoves(board, "h5", "f6", "g7", "g3", "f4");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_rank_2() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d2", WHITE_KNIGHT);
+        });
+        assertMoves(board, "d2", "b3", "c4", "e4", "f3", "f1", "b1");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_rank_1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d1", WHITE_KNIGHT);
+        });
+        assertMoves(board, "d1", "b2", "c3", "e3", "f2");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_rank_7() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d7", WHITE_KNIGHT);
+        });
+        assertMoves(board, "d7", "b8", "f8", "f6", "e5", "c5", "b6");
+    }
+
+    @Test
+    public void test_white_knight_moves_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d8", WHITE_KNIGHT);
+        });
+        assertMoves(board, "d8", "f7", "e6", "c6", "b7");
+    }
+
+    @Test
+    public void test_white_knight_moves_from_a7() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a7", WHITE_KNIGHT);
+        });
+        assertMoves(board, "a7", "c8", "c6", "b5");
+    }
+
+    @Test
+    public void test_white_knight_moves_from_h1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", WHITE_KNIGHT);
+        });
+        assertMoves(board, "h1", "f2", "g3");
+    }
+
+    @Test
+    public void test_white_knight_cannot_move_onto_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", WHITE_KNIGHT);
+            b.put("f2", WHITE_ROOK);
+        });
+        assertMoves(board, "h1", "g3");
+    }
+
+    @Test
+    public void test_white_knight_can_move_onto_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", WHITE_KNIGHT);
+            b.put("f2", BLACK_ROOK);
+        });
+        assertMoves(board, "h1", "f2", "g3");
+    }
+
+    @Test
+    public void test_black_knight_moves_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d5", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d5", "b6", "c7", "e7", "f6", "f4", "e3", "c3", "b4");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_file_b() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("b5", BLACK_KNIGHT);
+        });
+        assertMoves(board, "b5", "a7", "c7", "d6", "d4", "c3", "a3");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_file_a() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a5", BLACK_KNIGHT);
+        });
+        assertMoves(board, "a5", "b7", "c6", "c4", "b3");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_file_g() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("g5", BLACK_KNIGHT);
+        });
+        assertMoves(board, "g5", "e6", "f7", "h7", "h3", "f3", "e4");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_file_h() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h5", BLACK_KNIGHT);
+        });
+        assertMoves(board, "h5", "f6", "g7", "g3", "f4");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_rank_2() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d2", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d2", "b3", "c4", "e4", "f3", "f1", "b1");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_rank_1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d1", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d1", "b2", "c3", "e3", "f2");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_rank_7() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d7", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d7", "b8", "f8", "f6", "e5", "c5", "b6");
+    }
+
+    @Test
+    public void test_black_knight_moves_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d8", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d8", "f7", "e6", "c6", "b7");
+    }
+
+    @Test
+    public void test_black_knight_moves_from_a7() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a7", BLACK_KNIGHT);
+        });
+        assertMoves(board, "a7", "c8", "c6", "b5");
+    }
+
+    @Test
+    public void test_black_knight_moves_from_h1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", BLACK_KNIGHT);
+        });
+        assertMoves(board, "h1", "f2", "g3");
+    }
+
+    @Test
+    public void test_black_knight_cannot_move_onto_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", BLACK_KNIGHT);
+            b.put("f2", BLACK_ROOK);
+        });
+        assertMoves(board, "h1", "g3");
+    }
+
+    @Test
+    public void test_black_knight_can_move_onto_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", BLACK_KNIGHT);
+            b.put("f2", WHITE_ROOK);
+        });
+        assertMoves(board, "h1", "f2", "g3");
+    }
+
+    @Test
     public void test_empty_square_has_no_moves() {
         Board board = setupBoard(b -> {
             addKings(b, "a1", "h8");
