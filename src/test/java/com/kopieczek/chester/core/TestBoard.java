@@ -275,6 +275,187 @@ public class TestBoard {
     }
 
     @Test
+    public void test_black_pawn_moves_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c4", BLACK_PAWN);
+        });
+        assertMoves(board, "c4", "c3");
+    }
+
+    @Test
+    public void test_black_pawn_moves_on_rank_2() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a8", "h8");
+            b.put("b2", BLACK_PAWN);
+        });
+        assertMoves(board, "b2", "b1");
+    }
+
+    @Test
+    public void test_black_pawn_moves_on_rank_1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d1", BLACK_PAWN);
+        });
+        assertMoves(board, "d1");
+    }
+
+    @Test
+    public void test_black_pawn_moves_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("e8", BLACK_PAWN);
+        });
+        assertMoves(board, "e8", "e7");
+    }
+
+    @Test
+    public void test_black_pawn_moves_on_rank_7() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a7", BLACK_PAWN);
+        });
+        assertMoves(board, "a7", "a6", "a5");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_move_onto_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h7");
+            b.put("h8", BLACK_PAWN);
+        });
+        assertMoves(board, "h8");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_move_onto_black_piece_when_moving_two() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h5");
+            b.put("h7", BLACK_PAWN);
+        });
+        assertMoves(board, "h7", "h6");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_jump_over_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h6");
+            b.put("h7", BLACK_PAWN);
+        });
+        assertMoves(board, "h7");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_move_onto_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h7", "a1");
+            b.put("h8", BLACK_PAWN);
+        });
+        assertMoves(board, "h8");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_move_onto_white_piece_when_moving_two() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h5", "a1");
+            b.put("h7", BLACK_PAWN);
+        });
+        assertMoves(board, "h7", "h6");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_jump_over_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h6", "a1");
+            b.put("h7", BLACK_PAWN);
+        });
+        assertMoves(board, "h7");
+    }
+
+    @Test
+    public void test_black_pawn_can_take_white_piece_from_rank_1_on_right() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a8", "h8");
+            b.put("c1", WHITE_PAWN);
+            b.put("b2", BLACK_PAWN);
+        });
+        assertMoves(board, "b2", "c1", "b1");
+    }
+
+    @Test
+    public void test_black_pawn_can_take_white_piece_from_rank_1_on_left() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c1", WHITE_PAWN);
+            b.put("d2", BLACK_PAWN);
+        });
+        assertMoves(board, "d2", "c1", "d1");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_take_black_piece_on_right() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a8", "h8");
+            b.put("b2", BLACK_PAWN);
+            b.put("c1", BLACK_KNIGHT);
+        });
+        assertMoves(board, "b2", "b1");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_take_black_piece_on_left() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d2", BLACK_PAWN);
+            b.put("c1", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d2", "d1");
+    }
+
+    @Test
+    public void test_black_pawn_can_threaten_two_white_pieces_at_once_from_row_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d8", BLACK_PAWN);
+            b.put("c7", WHITE_PAWN);
+            b.put("e7", WHITE_PAWN);
+        });
+        assertMoves(board, "d8", "c7", "d7", "e7");
+    }
+
+    @Test
+    public void test_all_four_moves_of_black_pawn() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("b7", BLACK_PAWN);
+            b.put("a6", WHITE_KNIGHT);
+            b.put("c6", WHITE_ROOK);
+        });
+        assertMoves(board, "b7", "a6", "b6", "b5", "c6");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_take_wrapping_around_right_edge_of_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a4", WHITE_PAWN);
+            b.put("h4", BLACK_PAWN);
+        });
+        assertMoves(board, "h4", "h3");
+    }
+
+    @Test
+    public void test_black_pawn_cannot_take_wrapping_around_left_edge_of_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a2", "h8");
+            b.put("h4", WHITE_PAWN);
+            b.put("a6", BLACK_PAWN);
+        });
+        assertMoves(board, "a6", "a5");
+    }
+
+    @Test
     public void test_empty_square_has_no_moves() {
         Board board = setupBoard(b -> {
             addKings(b, "a1", "h8");

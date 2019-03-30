@@ -34,28 +34,36 @@ public class Board {
 
     private Collection<Integer> getMovesForPawn(int cell, Color color) {
         List<Integer> moves = new ArrayList<>();
-        if (isEmpty(cell)) {
+        final int sign = (color == Color.WHITE) ? 1 : -1;
+        final int standardMove = cell + sign * 8;
+        final int doubleMove = cell + sign * 16;
+        final int leftTake = cell - 1 + 8 * sign;
+        final int rightTake = cell + 1 + 8 * sign;
+        final int startingRank = (color == Color.WHITE) ? 2 : 7;
+        final boolean isOnStartingRank = (cell / 8 + 1 == startingRank);
+        final Color enemy = (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
+
+        if (standardMove < 0 || standardMove > 63) {
+            // Pawn is on last rank; no moves are possible
             return moves;
         }
 
-        else if (cell >= 56) {
-            // Top row; cannot move up
-        } else if (!isEmpty(cell + 8)) {
-            // Cannot move onto or through a piece ahead
-        } else if (cell / 8 == 1 && isEmpty(cell + 16)) {
-            moves.add(cell + 8);
-            moves.add(cell + 16);
-        } else {
-            moves.add(cell + 8);
+        if (isEmpty(standardMove)) {
+            // Pawn has a clear cell directly ahead, so non-taking moves are possible
+            moves.add(standardMove);
+            if (isOnStartingRank && isEmpty(doubleMove)) {
+                moves.add(doubleMove);
+            }
         }
 
-        if (cell <= 55) {
-            if (cell % 8 != 0 && !isEmpty(cell + 7) && pieces[cell+7].getColor() == Color.BLACK) {
-                moves.add(cell + 7);
-            }
-            if (cell % 8 != 7 && !isEmpty(cell + 9) && pieces[cell+9].getColor() == Color.BLACK) {
-                moves.add(cell + 9);
-            }
+        // Add in 'taking' moves if any are possible
+        boolean isInLeftFile = cell % 8 == 0;
+        boolean isInRightFile = cell % 8 == 7;
+        if (!isInLeftFile && !isEmpty(leftTake) && pieces[leftTake].getColor() == enemy) {
+            moves.add(leftTake);
+        }
+        if (!isInRightFile && !isEmpty(rightTake) && pieces[rightTake].getColor() == enemy) {
+            moves.add(rightTake);
         }
 
         return moves;
