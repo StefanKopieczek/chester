@@ -94,6 +94,15 @@ public class TestBoard {
     }
 
     @Test
+    public void test_empty_square_has_no_moves() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+        });
+        System.out.println(board.getMoves(convert("d1")));
+        assertMoves(board, "d1");
+    }
+
+    @Test
     public void test_white_pawn_moves_in_center_board() {
         Board board = setupBoard(b -> {
             addKings(b, "a1", "h8");
@@ -691,15 +700,6 @@ public class TestBoard {
             b.put("f2", WHITE_ROOK);
         });
         assertMoves(board, "h1", "f2", "g3");
-    }
-
-    @Test
-    public void test_empty_square_has_no_moves() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
-        });
-        System.out.println(board.getMoves(convert("d1")));
-        assertMoves(board, "d1");
     }
 
     private static Board setupBoard(Consumer<Map<String, Piece>> setup) {
