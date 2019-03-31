@@ -29,6 +29,8 @@ public class Board {
                 return getMovesForPawn(cell, piece.getColor());
             case KNIGHT:
                 return getMovesForKnight(cell, piece.getColor());
+            case BISHOP:
+                return getMovesForBishop(cell, piece.getColor());
             default:
                 throw new IllegalArgumentException("Unknown piece type " + piece.getType());
         }
@@ -98,6 +100,44 @@ public class Board {
         if (axis < 6)
             deltas.add(2);
         return deltas;
+    }
+
+    private Collection<Integer> getMovesForBishop(int cell, Color ownColor) {
+        List<Integer> moves = new ArrayList<>();
+        final int[] deltas = new int[] {-1, 1};
+        final int rank = cell / 8;
+        final int file = cell % 8;
+
+        for (int fileDelta : deltas) {
+            for (int rankDelta : deltas) {
+                // Add all moves in the direction determined by this given fileDelta and rankDelta, continuing
+                // until we hit a blocking piece, or reach the edge of the board.
+                int newRank = rank;
+                int newFile = file;
+                while (true) {
+                    newRank += rankDelta;
+                    newFile += fileDelta;
+                    if (newRank < 0 || newRank > 7 || newFile < 0 || newFile > 7) {
+                        break;
+                    }
+
+                    int newCell = newRank * 8 + newFile;
+                    if (isEmpty(newCell)) {
+                        moves.add(newCell);
+                    } else if (pieces[newCell].getColor() != ownColor) {
+                        // This cell is a capture; add the move but don't continue further in this direction
+                        moves.add(newCell);
+                        break;
+                    } else {
+                        // This cell is occupied by an allied piece; we cannot move here and cannot continue
+                        // further in this direction
+                        break;
+                    }
+                }
+            }
+        }
+
+        return moves;
     }
 
     private boolean isEmpty(int cell) {

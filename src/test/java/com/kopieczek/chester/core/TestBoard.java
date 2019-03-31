@@ -702,6 +702,158 @@ public class TestBoard {
         assertMoves(board, "h1", "f2", "g3");
     }
 
+    @Test
+    public void test_white_bishop_moves_on_center_black_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c5", WHITE_BISHOP);
+        });
+        assertMoves(board, "c5", "b6", "a7", "d6", "e7", "f8", "d4", "e3", "f2", "g1", "b4", "a3");
+    }
+
+    @Test
+    public void test_white_bishop_moves_on_edge_black_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a5", WHITE_BISHOP);
+        });
+        assertMoves(board, "a5", "b6", "c7", "d8", "b4", "c3", "d2", "e1");
+    }
+
+    @Test
+    public void test_white_bishop_moves_on_center_white_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d5", WHITE_BISHOP);
+        });
+        assertMoves(board, "d5", "c6", "b7", "a8", "e6", "f7", "g8", "e4", "f3", "g2", "h1", "c4", "b3", "a2");
+    }
+
+    @Test
+    public void test_white_bishop_moves_on_edge_white_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h5", WHITE_BISHOP);
+        });
+        assertMoves(board, "h5", "g4", "f3", "e2", "d1", "g6", "f7", "e8");
+    }
+
+    @Test
+    public void test_black_bishop_moves_on_center_black_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c5", BLACK_BISHOP);
+        });
+        assertMoves(board, "c5", "b6", "a7", "d6", "e7", "f8", "d4", "e3", "f2", "g1", "b4", "a3");
+    }
+
+    @Test
+    public void test_black_bishop_moves_on_edge_black_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a5", BLACK_BISHOP);
+        });
+        assertMoves(board, "a5", "b6", "c7", "d8", "b4", "c3", "d2", "e1");
+    }
+
+    @Test
+    public void test_black_bishop_moves_on_center_white_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d5", BLACK_BISHOP);
+        });
+        assertMoves(board, "d5", "c6", "b7", "a8", "e6", "f7", "g8", "e4", "f3", "g2", "h1", "c4", "b3", "a2");
+    }
+
+    @Test
+    public void test_black_bishop_moves_on_edge_white_square() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h5", BLACK_BISHOP);
+        });
+        assertMoves(board, "h5", "g4", "f3", "e2", "d1", "g6", "f7", "e8");
+    }
+
+    @Test
+    public void test_white_bishop_cannot_take_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", WHITE_BISHOP);
+            b.put("g2", WHITE_KNIGHT);
+        });
+        assertFalse(hasMove(board, "h1", "g2"));
+    }
+
+    @Test
+    public void test_white_bishop_can_take_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", WHITE_BISHOP);
+            b.put("g2", BLACK_KNIGHT);
+        });
+        assertTrue(hasMove(board, "h1", "g2"));
+    }
+
+    @Test
+    public void test_black_bishop_cannot_take_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a8", BLACK_BISHOP);
+            b.put("b7", BLACK_KNIGHT);
+        });
+        assertFalse(hasMove(board, "a8", "b7"));
+    }
+
+    @Test
+    public void test_black_bishop_can_take_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a8", BLACK_BISHOP);
+            b.put("b7", WHITE_KNIGHT);
+        });
+        assertTrue(hasMove(board, "a8", "b7"));
+    }
+
+    @Test
+    public void test_white_bishop_is_blocked_by_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a8", WHITE_BISHOP);
+            b.put("c6", WHITE_ROOK);
+        });
+        assertMoves(board, "a8", "b7");
+    }
+
+    @Test
+    public void test_white_bishop_is_blocked_by_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a8", WHITE_BISHOP);
+            b.put("c6", BLACK_ROOK);
+        });
+        assertMoves(board, "a8", "b7", "c6");
+    }
+
+    @Test
+    public void test_black_bishop_is_blocked_by_black_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a8", BLACK_BISHOP);
+            b.put("c6", BLACK_ROOK);
+        });
+        assertMoves(board, "a8", "b7");
+    }
+
+    @Test
+    public void test_black_bishop_is_blocked_by_white_piece() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("a8", BLACK_BISHOP);
+            b.put("c6", WHITE_ROOK);
+        });
+        assertMoves(board, "a8", "b7", "c6");
+    }
+
     private static Board setupBoard(Consumer<Map<String, Piece>> setup) {
         Map<String, Piece> schema = new HashMap<>();
         setup.accept(schema);
@@ -750,5 +902,9 @@ public class TestBoard {
         Arrays.sort(expectedMoves);
         Arrays.sort(actualMoves);
         assertArrayEquals(expectedMoves, actualMoves);
+    }
+
+    private static boolean hasMove(Board b, String from, String to) {
+        return b.getMoves(convert(from)).contains(convert(to));
     }
 }
