@@ -974,6 +974,7 @@ public class TestBoard {
         assertMoves(board, "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "a1", "b1", "c1", "d1", "e1", "f1", "g1");
     }
 
+
     @Test
     public void test_black_rook_blocks_and_takes() {
         Board board = setupBoard(b -> {
@@ -984,6 +985,150 @@ public class TestBoard {
             b.put("h5", BLACK_BISHOP);
         });
         assertMoves(board, "h4", "h3", "g4");
+    }
+
+    @Test
+    public void test_white_queen_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c4", WHITE_QUEEN);
+        });
+        assertMoves(board, "c4",
+                "a4", "b4", "d4", "e4", "f4", "g4", "h4",
+                "c1", "c2", "c3", "c5", "c6", "c7", "c8",
+                "a2", "b3", "d5", "e6", "f7", "g8",
+                "a6", "b5", "d3", "e2", "f1");
+    }
+
+    @Test
+    public void test_white_queen_on_file_a() {
+        Board board = setupBoard(b -> {
+            addKings(b, "b1", "h8");
+            b.put("a5", WHITE_QUEEN);
+        });
+        assertMoves(board, "a5",
+                "a1", "a2", "a3", "a4", "a6", "a7", "a8",
+                "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+                "b6", "c7", "d8",
+                "b4", "c3", "d2", "e1");
+    }
+
+    @Test
+    public void test_white_queen_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h7");
+            b.put("d8", WHITE_QUEEN);
+        });
+        assertMoves(board, "d8",
+                "a8", "b8", "c8", "e8", "f8", "g8", "h8",
+                "d1", "d2", "d3", "d4", "d5", "d6", "d7",
+                "c7", "b6", "a5",
+                "e7", "f6", "g5", "h4");
+    }
+
+    @Test
+    public void test_white_queen_on_a8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "b1", "h7");
+            b.put("a8", WHITE_QUEEN);
+        });
+        assertMoves(board, "a8",
+                "b8", "c8", "d8", "e8", "f8", "g8", "h8",
+                "a1", "a2", "a3", "a4", "a5", "a6", "a7",
+                "b7", "c6", "d5", "e4", "f3", "g2", "h1");
+    }
+
+    @Test
+    public void test_white_queen_blocks_and_takes() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d4", WHITE_QUEEN);
+            b.put("d5", WHITE_PAWN);
+            b.put("d3", BLACK_PAWN);
+            b.put("b4", WHITE_BISHOP);
+            b.put("f4", BLACK_BISHOP);
+            b.put("c3", WHITE_ROOK);
+            b.put("e5", BLACK_ROOK);
+            b.put("f2", WHITE_KNIGHT);
+            b.put("b6", BLACK_KNIGHT);
+        });
+        assertMoves(board, "d4",
+                "c4", "e4", "f4",
+                "d3",
+                "e5",
+                "b6", "c5", "e3");
+    }
+
+    @Test
+    public void test_black_queen_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c4", BLACK_QUEEN);
+        });
+        assertMoves(board, "c4",
+                "a4", "b4", "d4", "e4", "f4", "g4", "h4",
+                "c1", "c2", "c3", "c5", "c6", "c7", "c8",
+                "a2", "b3", "d5", "e6", "f7", "g8",
+                "a6", "b5", "d3", "e2", "f1");
+    }
+
+    @Test
+    public void test_black_queen_on_file_a() {
+        Board board = setupBoard(b -> {
+            addKings(b, "b1", "h8");
+            b.put("a5", BLACK_QUEEN);
+        });
+        assertMoves(board, "a5",
+                "a1", "a2", "a3", "a4", "a6", "a7", "a8",
+                "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+                "b6", "c7", "d8",
+                "b4", "c3", "d2", "e1");
+    }
+
+    @Test
+    public void test_black_queen_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h7");
+            b.put("d8", BLACK_QUEEN);
+        });
+        assertMoves(board, "d8",
+                "a8", "b8", "c8", "e8", "f8", "g8", "h8",
+                "d1", "d2", "d3", "d4", "d5", "d6", "d7",
+                "c7", "b6", "a5",
+                "e7", "f6", "g5", "h4");
+    }
+
+    @Test
+    public void test_black_queen_on_a8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "b1", "h7");
+            b.put("a8", BLACK_QUEEN);
+        });
+        assertMoves(board, "a8",
+                "b8", "c8", "d8", "e8", "f8", "g8", "h8",
+                "a1", "a2", "a3", "a4", "a5", "a6", "a7",
+                "b7", "c6", "d5", "e4", "f3", "g2", "h1");
+    }
+
+    @Test
+    public void test_black_queen_blocks_and_takes() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("d4", BLACK_QUEEN);
+            b.put("d5", BLACK_PAWN);
+            b.put("d3", WHITE_PAWN);
+            b.put("b4", BLACK_BISHOP);
+            b.put("f4", WHITE_BISHOP);
+            b.put("c3", BLACK_ROOK);
+            b.put("e5", WHITE_ROOK);
+            b.put("f2", BLACK_KNIGHT);
+            b.put("b6", WHITE_KNIGHT);
+        });
+        assertMoves(board, "d4",
+                "c4", "e4", "f4",
+                "d3",
+                "e5",
+                "b6", "c5", "e3");
     }
 
     private static Board setupBoard(Consumer<Map<String, Piece>> setup) {

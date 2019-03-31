@@ -33,6 +33,8 @@ public class Board {
                 return getMovesForBishop(cell, piece.getColor());
             case ROOK:
                 return getMovesForRook(cell, piece.getColor());
+            case QUEEN:
+                return getMovesForQueen(cell, piece.getColor());
             default:
                 throw new IllegalArgumentException("Unknown piece type " + piece.getType());
         }
@@ -189,6 +191,13 @@ public class Board {
             break;
         }
 
+        return moves;
+    }
+
+    private Collection<Integer> getMovesForQueen(int cell, Color ownColor) {
+        List<Integer> moves = new ArrayList<>();
+        moves.addAll(getMovesForBishop(cell, ownColor));
+        moves.addAll(getMovesForRook(cell, ownColor));
         return moves;
     }
 
