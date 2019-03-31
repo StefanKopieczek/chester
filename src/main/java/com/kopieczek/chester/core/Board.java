@@ -31,6 +31,8 @@ public class Board {
                 return getMovesForKnight(cell, piece.getColor());
             case BISHOP:
                 return getMovesForBishop(cell, piece.getColor());
+            case ROOK:
+                return getMovesForRook(cell, piece.getColor());
             default:
                 throw new IllegalArgumentException("Unknown piece type " + piece.getType());
         }
@@ -135,6 +137,56 @@ public class Board {
                     }
                 }
             }
+        }
+
+        return moves;
+    }
+
+    private Collection<Integer> getMovesForRook(int cell, Color ownColor) {
+        List<Integer> moves = new ArrayList<>();
+
+        // Left ray
+        for (int target = cell - 1; target >= (cell / 8) * 8; target--) {
+            if (isEmpty(target)) {
+                moves.add(target);
+                continue;
+            } else if (pieces[target].getColor() != ownColor) {
+                moves.add(target);
+            }
+            break;
+        }
+
+        // Right ray
+        for (int target = cell + 1; target < (cell / 8) * 8 + 8; target++) {
+            if (isEmpty(target)) {
+                moves.add(target);
+                continue;
+            } else if (pieces[target].getColor() != ownColor) {
+                moves.add(target);
+            }
+            break;
+        }
+
+        // Bottom ray
+        for (int target = cell - 8; target >= 0; target -= 8) {
+            if (isEmpty(target)) {
+                moves.add(target);
+                continue;
+            } else if (pieces[target].getColor() != ownColor) {
+                moves.add(target);
+            }
+            break;
+        }
+
+        // Top ray
+        for (int target = cell + 8; target < 64; target += 8) {
+            if (isEmpty(target)) {
+                moves.add(target);
+                continue;
+            } else if (pieces[target].getColor() != ownColor) {
+                moves.add(target);
+            }
+            break;
         }
 
         return moves;
