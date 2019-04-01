@@ -7,6 +7,33 @@ import java.util.stream.Collectors;
 public class Board {
     private final Piece[] pieces = new Piece[64];
 
+    public static Board standardSetup() {
+        Board board = new Board();
+        board.put(0, Piece.WHITE_ROOK);
+        board.put(1, Piece.WHITE_KNIGHT);
+        board.put(2, Piece.WHITE_BISHOP);
+        board.put(3, Piece.WHITE_QUEEN);
+        board.put(4, Piece.WHITE_KING);
+        board.put(5, Piece.WHITE_BISHOP);
+        board.put(6, Piece.WHITE_KNIGHT);
+        board.put(7, Piece.WHITE_ROOK);
+        board.put(56, Piece.BLACK_ROOK);
+        board.put(57, Piece.BLACK_KNIGHT);
+        board.put(58, Piece.BLACK_BISHOP);
+        board.put(59, Piece.BLACK_QUEEN);
+        board.put(60, Piece.BLACK_KING);
+        board.put(61, Piece.BLACK_BISHOP);
+        board.put(62, Piece.BLACK_KNIGHT);
+        board.put(63, Piece.BLACK_ROOK);
+
+        for (int file = 0; file < 8; file++) {
+            board.put(8 + file, Piece.WHITE_PAWN);
+            board.put(48 + file, Piece.BLACK_PAWN);
+        }
+
+        return board;
+    }
+
     public Optional<Piece> get(int cell) {
         return Optional.ofNullable(pieces[cell]);
     }
