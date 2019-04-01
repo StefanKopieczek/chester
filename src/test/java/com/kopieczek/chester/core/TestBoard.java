@@ -95,8 +95,8 @@ public class TestBoard {
 
     @Test
     public void test_empty_square_has_no_moves() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
         });
         System.out.println(board.getMoves(convert("d1")));
         assertNoMoves(board, "d1");
@@ -104,8 +104,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_moves_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c4", WHITE_PAWN);
         });
         assertMoves(board, "c4", "c5");
@@ -113,8 +113,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_moves_on_rank_7() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("b7", WHITE_PAWN);
         });
         assertMoves(board, "b7", "b8");
@@ -122,8 +122,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_moves_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d8", WHITE_PAWN);
         });
         assertNoMoves(board, "d8");
@@ -131,8 +131,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_moves_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("e1", WHITE_PAWN);
         });
         assertMoves(board, "e1", "e2");
@@ -140,8 +140,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_moves_on_rank_2() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a2", WHITE_PAWN);
         });
         assertMoves(board, "a2", "a3", "a4");
@@ -149,8 +149,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_move_onto_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "h8");
             b.put("a1", WHITE_PAWN);
         });
         assertNoMoves(board, "a1");
@@ -158,8 +158,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_move_onto_white_piece_when_moving_two() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a4", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a4", "h8");
             b.put("a2", WHITE_PAWN);
         });
         assertMoves(board, "a2", "a3");
@@ -167,8 +167,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_jump_over_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a3", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a3", "h8");
             b.put("a2", WHITE_PAWN);
         });
         assertNoMoves(board, "a2");
@@ -176,8 +176,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_move_onto_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "a2");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "a2");
             b.put("a1", WHITE_PAWN);
         });
         assertNoMoves(board, "a1");
@@ -185,8 +185,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_move_onto_black_piece_when_moving_two() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "a4");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "a4");
             b.put("a2", WHITE_PAWN);
         });
         assertMoves(board, "a2", "a3");
@@ -194,8 +194,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_jump_over_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "a3");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "a3");
             b.put("a2", WHITE_PAWN);
         });
         assertNoMoves(board, "a2");
@@ -203,8 +203,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_can_take_black_piece_from_rank_1_on_left() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h1", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("b2", BLACK_PAWN);
         });
@@ -213,8 +213,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_can_take_black_piece_from_rank_1_on_right() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("d2", BLACK_PAWN);
         });
@@ -223,8 +223,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_take_white_piece_on_left() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("b2", WHITE_KNIGHT);
         });
@@ -233,8 +233,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_take_white_piece_on_right() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("d2", WHITE_KNIGHT);
         });
@@ -243,8 +243,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_can_threaten_two_black_pieces_at_once_from_row_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d1", WHITE_PAWN);
             b.put("c2", BLACK_PAWN);
             b.put("e2", BLACK_PAWN);
@@ -254,8 +254,8 @@ public class TestBoard {
 
     @Test
     public void test_all_four_moves_of_white_pawn() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("b2", WHITE_PAWN);
             b.put("a3", BLACK_KNIGHT);
             b.put("c3", BLACK_ROOK);
@@ -265,8 +265,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_take_wrapping_around_left_edge_of_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a4", WHITE_PAWN);
             b.put("h4", BLACK_PAWN);
         });
@@ -275,8 +275,8 @@ public class TestBoard {
 
     @Test
     public void test_white_pawn_cannot_take_wrapping_around_right_edge_of_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "h8");
             b.put("h4", WHITE_PAWN);
             b.put("a6", BLACK_PAWN);
         });
@@ -285,8 +285,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_moves_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c4", BLACK_PAWN);
         });
         assertMoves(board, "c4", "c3");
@@ -294,8 +294,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_moves_on_rank_2() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a8", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a8", "h8");
             b.put("b2", BLACK_PAWN);
         });
         assertMoves(board, "b2", "b1");
@@ -303,8 +303,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_moves_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d1", BLACK_PAWN);
         });
         assertNoMoves(board, "d1");
@@ -312,8 +312,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_moves_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("e8", BLACK_PAWN);
         });
         assertMoves(board, "e8", "e7");
@@ -321,8 +321,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_moves_on_rank_7() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a7", BLACK_PAWN);
         });
         assertMoves(board, "a7", "a6", "a5");
@@ -330,8 +330,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_move_onto_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h7");
             b.put("h8", BLACK_PAWN);
         });
         assertNoMoves(board, "h8");
@@ -339,8 +339,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_move_onto_black_piece_when_moving_two() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h5");
             b.put("h7", BLACK_PAWN);
         });
         assertMoves(board, "h7", "h6");
@@ -348,8 +348,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_jump_over_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h6");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h6");
             b.put("h7", BLACK_PAWN);
         });
         assertNoMoves(board, "h7");
@@ -357,8 +357,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_move_onto_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h7", "a1");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h7", "a1");
             b.put("h8", BLACK_PAWN);
         });
         assertNoMoves(board, "h8");
@@ -366,8 +366,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_move_onto_white_piece_when_moving_two() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h5", "a1");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h5", "a1");
             b.put("h7", BLACK_PAWN);
         });
         assertMoves(board, "h7", "h6");
@@ -375,8 +375,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_jump_over_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h6", "a1");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h6", "a1");
             b.put("h7", BLACK_PAWN);
         });
         assertNoMoves(board, "h7");
@@ -384,8 +384,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_can_take_white_piece_from_rank_1_on_right() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a8", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a8", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("b2", BLACK_PAWN);
         });
@@ -394,8 +394,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_can_take_white_piece_from_rank_1_on_left() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("d2", BLACK_PAWN);
         });
@@ -404,8 +404,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_take_black_piece_on_right() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a8", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a8", "h8");
             b.put("b2", BLACK_PAWN);
             b.put("c1", BLACK_KNIGHT);
         });
@@ -414,8 +414,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_take_black_piece_on_left() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d2", BLACK_PAWN);
             b.put("c1", BLACK_KNIGHT);
         });
@@ -424,8 +424,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_can_threaten_two_white_pieces_at_once_from_row_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d8", BLACK_PAWN);
             b.put("c7", WHITE_PAWN);
             b.put("e7", WHITE_PAWN);
@@ -435,8 +435,8 @@ public class TestBoard {
 
     @Test
     public void test_all_four_moves_of_black_pawn() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("b7", BLACK_PAWN);
             b.put("a6", WHITE_KNIGHT);
             b.put("c6", WHITE_ROOK);
@@ -446,8 +446,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_take_wrapping_around_right_edge_of_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a4", WHITE_PAWN);
             b.put("h4", BLACK_PAWN);
         });
@@ -456,8 +456,8 @@ public class TestBoard {
 
     @Test
     public void test_black_pawn_cannot_take_wrapping_around_left_edge_of_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "h8");
             b.put("h4", WHITE_PAWN);
             b.put("a6", BLACK_PAWN);
         });
@@ -466,8 +466,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d5", WHITE_KNIGHT);
         });
         assertMoves(board, "d5", "b6", "c7", "e7", "f6", "f4", "e3", "c3", "b4");
@@ -475,8 +475,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_file_b() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("b5", WHITE_KNIGHT);
         });
         assertMoves(board, "b5", "a7", "c7", "d6", "d4", "c3", "a3");
@@ -484,8 +484,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a5", WHITE_KNIGHT);
         });
         assertMoves(board, "a5", "b7", "c6", "c4", "b3");
@@ -493,8 +493,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_file_g() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("g5", WHITE_KNIGHT);
         });
         assertMoves(board, "g5", "e6", "f7", "h7", "h3", "f3", "e4");
@@ -502,8 +502,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_file_h() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h5", WHITE_KNIGHT);
         });
         assertMoves(board, "h5", "f6", "g7", "g3", "f4");
@@ -511,8 +511,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_rank_2() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d2", WHITE_KNIGHT);
         });
         assertMoves(board, "d2", "b3", "c4", "e4", "f3", "f1", "b1");
@@ -520,8 +520,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d1", WHITE_KNIGHT);
         });
         assertMoves(board, "d1", "b2", "c3", "e3", "f2");
@@ -529,8 +529,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_rank_7() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d7", WHITE_KNIGHT);
         });
         assertMoves(board, "d7", "b8", "f8", "f6", "e5", "c5", "b6");
@@ -538,8 +538,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d8", WHITE_KNIGHT);
         });
         assertMoves(board, "d8", "f7", "e6", "c6", "b7");
@@ -547,8 +547,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_from_a7() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a7", WHITE_KNIGHT);
         });
         assertMoves(board, "a7", "c8", "c6", "b5");
@@ -556,8 +556,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_moves_from_h1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", WHITE_KNIGHT);
         });
         assertMoves(board, "h1", "f2", "g3");
@@ -565,8 +565,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_cannot_move_onto_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", WHITE_KNIGHT);
             b.put("f2", WHITE_ROOK);
         });
@@ -575,8 +575,8 @@ public class TestBoard {
 
     @Test
     public void test_white_knight_can_move_onto_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", WHITE_KNIGHT);
             b.put("f2", BLACK_ROOK);
         });
@@ -585,8 +585,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d5", BLACK_KNIGHT);
         });
         assertMoves(board, "d5", "b6", "c7", "e7", "f6", "f4", "e3", "c3", "b4");
@@ -594,8 +594,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_file_b() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("b5", BLACK_KNIGHT);
         });
         assertMoves(board, "b5", "a7", "c7", "d6", "d4", "c3", "a3");
@@ -603,8 +603,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a5", BLACK_KNIGHT);
         });
         assertMoves(board, "a5", "b7", "c6", "c4", "b3");
@@ -612,8 +612,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_file_g() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("g5", BLACK_KNIGHT);
         });
         assertMoves(board, "g5", "e6", "f7", "h7", "h3", "f3", "e4");
@@ -621,8 +621,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_file_h() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h5", BLACK_KNIGHT);
         });
         assertMoves(board, "h5", "f6", "g7", "g3", "f4");
@@ -630,8 +630,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_rank_2() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d2", BLACK_KNIGHT);
         });
         assertMoves(board, "d2", "b3", "c4", "e4", "f3", "f1", "b1");
@@ -639,8 +639,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d1", BLACK_KNIGHT);
         });
         assertMoves(board, "d1", "b2", "c3", "e3", "f2");
@@ -648,8 +648,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_rank_7() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d7", BLACK_KNIGHT);
         });
         assertMoves(board, "d7", "b8", "f8", "f6", "e5", "c5", "b6");
@@ -657,8 +657,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d8", BLACK_KNIGHT);
         });
         assertMoves(board, "d8", "f7", "e6", "c6", "b7");
@@ -666,8 +666,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_from_a7() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a7", BLACK_KNIGHT);
         });
         assertMoves(board, "a7", "c8", "c6", "b5");
@@ -675,8 +675,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_moves_from_h1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", BLACK_KNIGHT);
         });
         assertMoves(board, "h1", "f2", "g3");
@@ -684,8 +684,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_cannot_move_onto_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", BLACK_KNIGHT);
             b.put("f2", BLACK_ROOK);
         });
@@ -694,8 +694,8 @@ public class TestBoard {
 
     @Test
     public void test_black_knight_can_move_onto_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", BLACK_KNIGHT);
             b.put("f2", WHITE_ROOK);
         });
@@ -704,8 +704,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_moves_on_center_black_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c5", WHITE_BISHOP);
         });
         assertMoves(board, "c5", "b6", "a7", "d6", "e7", "f8", "d4", "e3", "f2", "g1", "b4", "a3");
@@ -713,8 +713,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_moves_on_edge_black_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a5", WHITE_BISHOP);
         });
         assertMoves(board, "a5", "b6", "c7", "d8", "b4", "c3", "d2", "e1");
@@ -722,8 +722,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_moves_on_center_white_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d5", WHITE_BISHOP);
         });
         assertMoves(board, "d5", "c6", "b7", "a8", "e6", "f7", "g8", "e4", "f3", "g2", "h1", "c4", "b3", "a2");
@@ -731,8 +731,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_moves_on_edge_white_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h5", WHITE_BISHOP);
         });
         assertMoves(board, "h5", "g4", "f3", "e2", "d1", "g6", "f7", "e8");
@@ -740,8 +740,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_moves_on_center_black_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c5", BLACK_BISHOP);
         });
         assertMoves(board, "c5", "b6", "a7", "d6", "e7", "f8", "d4", "e3", "f2", "g1", "b4", "a3");
@@ -749,8 +749,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_moves_on_edge_black_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a5", BLACK_BISHOP);
         });
         assertMoves(board, "a5", "b6", "c7", "d8", "b4", "c3", "d2", "e1");
@@ -758,8 +758,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_moves_on_center_white_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d5", BLACK_BISHOP);
         });
         assertMoves(board, "d5", "c6", "b7", "a8", "e6", "f7", "g8", "e4", "f3", "g2", "h1", "c4", "b3", "a2");
@@ -767,8 +767,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_moves_on_edge_white_square() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h5", BLACK_BISHOP);
         });
         assertMoves(board, "h5", "g4", "f3", "e2", "d1", "g6", "f7", "e8");
@@ -776,8 +776,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_cannot_take_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", WHITE_BISHOP);
             b.put("g2", WHITE_KNIGHT);
         });
@@ -786,8 +786,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_can_take_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", WHITE_BISHOP);
             b.put("g2", BLACK_KNIGHT);
         });
@@ -796,8 +796,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_cannot_take_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a8", BLACK_BISHOP);
             b.put("b7", BLACK_KNIGHT);
         });
@@ -806,8 +806,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_can_take_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a8", BLACK_BISHOP);
             b.put("b7", WHITE_KNIGHT);
         });
@@ -816,8 +816,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_is_blocked_by_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a8", WHITE_BISHOP);
             b.put("c6", WHITE_ROOK);
         });
@@ -826,8 +826,8 @@ public class TestBoard {
 
     @Test
     public void test_white_bishop_is_blocked_by_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a8", WHITE_BISHOP);
             b.put("c6", BLACK_ROOK);
         });
@@ -836,8 +836,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_is_blocked_by_black_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a8", BLACK_BISHOP);
             b.put("c6", BLACK_ROOK);
         });
@@ -846,8 +846,8 @@ public class TestBoard {
 
     @Test
     public void test_black_bishop_is_blocked_by_white_piece() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a8", BLACK_BISHOP);
             b.put("c6", WHITE_ROOK);
         });
@@ -856,8 +856,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d5", WHITE_ROOK);
         });
         assertMoves(board, "d5", "a5", "b5", "c5", "e5", "f5", "g5", "h5", "d1", "d2", "d3", "d4", "d6", "d7", "d8");
@@ -865,8 +865,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "h8");
             b.put("d1", WHITE_ROOK);
         });
         assertMoves(board, "d1", "a1", "b1", "c1", "e1", "f1", "g1", "h1", "d2", "d3", "d4", "d5", "d6", "d7", "d8");
@@ -874,8 +874,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h7");
             b.put("d8", WHITE_ROOK);
         });
         assertMoves(board, "d8", "a8", "b8", "c8", "e8", "f8", "g8", "h8", "d1", "d2", "d3", "d4", "d5", "d6", "d7");
@@ -883,8 +883,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "b2", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "b2", "h8");
             b.put("a4", WHITE_ROOK);
         });
         assertMoves(board, "a4", "a1", "a2", "a3", "a5", "a6", "a7", "a8", "b4", "c4", "d4", "e4", "f4", "g4", "h4");
@@ -892,8 +892,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_on_file_h() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "g7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "g7");
             b.put("h3", WHITE_ROOK);
         });
         assertMoves(board, "h3", "h1", "h2", "h4", "h5", "h6", "h7", "h8", "a3", "b3", "c3", "d3", "e3", "f3", "g3");
@@ -901,8 +901,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_at_h1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "g8");
             b.put("h1", WHITE_ROOK);
         });
         assertMoves(board, "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "a1", "b1", "c1", "d1", "e1", "f1", "g1");
@@ -910,8 +910,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_blocks_and_takes() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "g8");
             b.put("d4", WHITE_ROOK);
             b.put("d3", BLACK_PAWN);
             b.put("b4", WHITE_KNIGHT);
@@ -923,8 +923,8 @@ public class TestBoard {
 
     @Test
     public void test_white_rook_blocks_and_takes_2() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "g8");
             b.put("d4", WHITE_ROOK);
             b.put("d3", WHITE_PAWN);
             b.put("b4", BLACK_KNIGHT);
@@ -936,8 +936,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d5", BLACK_ROOK);
         });
         assertMoves(board, "d5", "a5", "b5", "c5", "e5", "f5", "g5", "h5", "d1", "d2", "d3", "d4", "d6", "d7", "d8");
@@ -945,8 +945,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "h8");
             b.put("d1", BLACK_ROOK);
         });
         assertMoves(board, "d1", "a1", "b1", "c1", "e1", "f1", "g1", "h1", "d2", "d3", "d4", "d5", "d6", "d7", "d8");
@@ -954,8 +954,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h7");
             b.put("d8", BLACK_ROOK);
         });
         assertMoves(board, "d8", "a8", "b8", "c8", "e8", "f8", "g8", "h8", "d1", "d2", "d3", "d4", "d5", "d6", "d7");
@@ -963,8 +963,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("a4", BLACK_ROOK);
         });
         assertMoves(board, "a4", "a1", "a2", "a3", "a5", "a6", "a7", "a8", "b4", "c4", "d4", "e4", "f4", "g4", "h4");
@@ -972,8 +972,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_on_file_h() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "g6");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "g6");
             b.put("h3", BLACK_ROOK);
         });
         assertMoves(board, "h3", "h1", "h2", "h4", "h5", "h6", "h7", "h8", "a3", "b3", "c3", "d3", "e3", "f3", "g3");
@@ -981,8 +981,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_at_h1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a2", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a2", "g8");
             b.put("h1", BLACK_ROOK);
         });
         assertMoves(board, "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "a1", "b1", "c1", "d1", "e1", "f1", "g1");
@@ -991,8 +991,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_blocks_and_takes() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "g8");
             b.put("d4", BLACK_ROOK);
             b.put("d3", WHITE_PAWN);
             b.put("b4", BLACK_KNIGHT);
@@ -1004,8 +1004,8 @@ public class TestBoard {
 
     @Test
     public void test_black_rook_blocks_and_takes_2() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "g7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "g7");
             b.put("d4", BLACK_ROOK);
             b.put("d3", BLACK_PAWN);
             b.put("b4", WHITE_KNIGHT);
@@ -1017,8 +1017,8 @@ public class TestBoard {
 
     @Test
     public void test_white_queen_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c4", WHITE_QUEEN);
         });
         assertMoves(board, "c4",
@@ -1030,8 +1030,8 @@ public class TestBoard {
 
     @Test
     public void test_white_queen_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "b1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "b1", "h8");
             b.put("a5", WHITE_QUEEN);
         });
         assertMoves(board, "a5",
@@ -1043,8 +1043,8 @@ public class TestBoard {
 
     @Test
     public void test_white_queen_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h7");
             b.put("d8", WHITE_QUEEN);
         });
         assertMoves(board, "d8",
@@ -1056,8 +1056,8 @@ public class TestBoard {
 
     @Test
     public void test_white_queen_on_a8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "b1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "b1", "h7");
             b.put("a8", WHITE_QUEEN);
         });
         assertMoves(board, "a8",
@@ -1068,8 +1068,8 @@ public class TestBoard {
 
     @Test
     public void test_white_queen_blocks_and_takes() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d4", WHITE_QUEEN);
             b.put("d5", WHITE_PAWN);
             b.put("d3", BLACK_PAWN);
@@ -1089,8 +1089,8 @@ public class TestBoard {
 
     @Test
     public void test_black_queen_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c4", BLACK_QUEEN);
         });
         assertMoves(board, "c4",
@@ -1102,8 +1102,8 @@ public class TestBoard {
 
     @Test
     public void test_black_queen_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "b1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "b1", "h8");
             b.put("a5", BLACK_QUEEN);
         });
         assertMoves(board, "a5",
@@ -1115,8 +1115,8 @@ public class TestBoard {
 
     @Test
     public void test_black_queen_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h7");
             b.put("d8", BLACK_QUEEN);
         });
         assertMoves(board, "d8",
@@ -1128,8 +1128,8 @@ public class TestBoard {
 
     @Test
     public void test_black_queen_on_a8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "b1", "h7");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "b1", "h7");
             b.put("a8", BLACK_QUEEN);
         });
         assertMoves(board, "a8",
@@ -1140,8 +1140,8 @@ public class TestBoard {
 
     @Test
     public void test_black_queen_blocks_and_takes() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("d4", BLACK_QUEEN);
             b.put("d5", BLACK_PAWN);
             b.put("d3", WHITE_PAWN);
@@ -1161,48 +1161,48 @@ public class TestBoard {
 
     @Test
     public void test_white_king_move_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "c5", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "c5", "h8");
         });
         assertMoves(board, "c5", "d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6");
     }
 
     @Test
     public void test_white_king_move_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a5", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a5", "h8");
         });
         assertMoves(board, "a5", "b5", "b4", "a4", "a6", "b6");
     }
 
     @Test
     public void test_white_king_move_on_file_h() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h5", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h5", "h8");
         });
         assertMoves(board, "h5", "h6", "h4", "g4", "g5", "g6");
     }
 
     @Test
     public void test_white_king_move_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "c1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "c1", "h8");
         });
         assertMoves(board, "c1", "d1", "b1", "b2", "c2", "d2");
     }
 
     @Test
     public void test_white_king_move_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "c8", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "c8", "h8");
         });
         assertMoves(board, "c8", "d8", "d7", "c7", "b7", "b8");
     }
 
     @Test
     public void test_white_king_move_from_a8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a8", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a8", "h8");
         });
         assertMoves(board, "a8", "b8", "b7", "a7");
     }
@@ -1210,11 +1210,11 @@ public class TestBoard {
     @Test
     public void test_white_king_can_take_black_pieces_from_all_angles_1() {
         String[] targets = new String[] {"d5", "d4", "b4", "b5", "b6", "d6"};
-        Board board = setupBoard(b -> {
-            addKings(b, "c5", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "c5", "h8");
             for (String cell : targets) {
                 b.put(cell, BLACK_PAWN);
-            };
+            }
         });
 
         for (String target : targets) {
@@ -1225,11 +1225,11 @@ public class TestBoard {
     @Test
     public void test_white_king_can_take_black_pieces_from_all_angles_2() {
         String[] targets = new String[] {"c4", "c6"};
-        Board board = setupBoard(b -> {
-            addKings(b, "c5", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "c5", "h8");
             for (String cell : targets) {
                 b.put(cell, BLACK_PAWN);
-            };
+            }
         });
 
         for (String target : targets) {
@@ -1240,8 +1240,8 @@ public class TestBoard {
     @Test
     public void test_white_king_cannot_take_white_pieces() {
         String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
-        Board board = setupBoard(b -> {
-            addKings(b, "c5", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "c5", "h8");
             for (String cell : adjacencies) {
                 b.put(cell, WHITE_KNIGHT);
             }
@@ -1251,48 +1251,48 @@ public class TestBoard {
 
     @Test
     public void test_black_king_move_in_center_board() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "c5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "c5");
         });
         assertMoves(board, "c5", "d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6");
     }
 
     @Test
     public void test_black_king_move_on_file_a() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "a5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "a5");
         });
         assertMoves(board, "a5", "b5", "b4", "a4", "a6", "b6");
     }
 
     @Test
     public void test_black_king_move_on_file_h() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "h5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "h5");
         });
         assertMoves(board, "h5", "h6", "h4", "g4", "g5", "g6");
     }
 
     @Test
     public void test_black_king_move_on_rank_1() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "c1");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "c1");
         });
         assertMoves(board, "c1", "d1", "b1", "b2", "c2", "d2");
     }
 
     @Test
     public void test_black_king_move_on_rank_8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "c8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "c8");
         });
         assertMoves(board, "c8", "d8", "d7", "c7", "b7", "b8");
     }
 
     @Test
     public void test_black_king_move_from_a8() {
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "a8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "a8");
         });
         assertMoves(board, "a8", "b8", "b7", "a7");
     }
@@ -1300,11 +1300,11 @@ public class TestBoard {
     @Test
     public void test_black_king_can_take_white_pieces_from_all_angles_1() {
         String[] targets = new String[] {"d5", "d4", "b4", "b5", "b6", "d6"};
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "c5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "c5");
             for (String cell : targets) {
                 b.put(cell, WHITE_PAWN);
-            };
+            }
         });
 
         for (String target : targets) {
@@ -1315,11 +1315,11 @@ public class TestBoard {
     @Test
     public void test_black_king_can_take_white_pieces_from_all_angles_2() {
         String[] targets = new String[] {"c4", "c6"};
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "c5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "c5");
             for (String cell : targets) {
                 b.put(cell, WHITE_PAWN);
-            };
+            }
         });
 
         for (String target : targets) {
@@ -1330,8 +1330,8 @@ public class TestBoard {
     @Test
     public void test_black_king_cannot_take_black_pieces() {
         String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
-        Board board = setupBoard(b -> {
-            addKings(b, "h8", "c5");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "h8", "c5");
             for (String cell : adjacencies) {
                 b.put(cell, BLACK_KNIGHT);
             }
@@ -1341,8 +1341,8 @@ public class TestBoard {
 
     @Test
     public void test_king_cannot_move_into_check() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("b8", BLACK_ROOK);
         });
         assertMoves(board, "a1", "a2");
@@ -1350,8 +1350,8 @@ public class TestBoard {
 
     @Test
     public void test_other_pieces_cannot_move_independently_during_check() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h6", WHITE_ROOK);
             b.put("b3", BLACK_KNIGHT);
         });
@@ -1360,8 +1360,8 @@ public class TestBoard {
 
     @Test
     public void test_other_pieces_may_move_to_block_check() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("h1", BLACK_QUEEN);
             b.put("f5", WHITE_ROOK);
         });
@@ -1370,8 +1370,8 @@ public class TestBoard {
 
     @Test
     public void test_other_pieces_may_move_to_take_attacker_during_check() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "g8");
             b.put("h1", BLACK_QUEEN);
             b.put("h3", WHITE_ROOK);
         });
@@ -1380,8 +1380,8 @@ public class TestBoard {
 
     @Test
     public void test_other_pieces_may_block_or_take_attacker_during_check() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a8", "g8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a8", "g8");
             b.put("h1", BLACK_BISHOP);
             b.put("h2", WHITE_ROOK);
         });
@@ -1391,16 +1391,16 @@ public class TestBoard {
     @Test
     public void test_king_may_not_move_into_range_of_other_king() {
         // Specifically want to test this to make sure recursive king-threat is handled correctly
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "a3");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "a3");
         });
         assertFalse(hasMove(board, "a1", "a2"));
     }
 
     @Test
     public void test_pinned_piece_cannot_move() {
-        Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+        Board board = BoardUtils.setupBoard(b -> {
+            BoardUtils.addKings(b, "a1", "h8");
             b.put("c3", WHITE_BISHOP);
             b.put("f6", BLACK_ROOK);
         });
@@ -1411,23 +1411,8 @@ public class TestBoard {
     @Test
     public void test_moves_are_allowed_with_no_king_on_board() {
         // Obviously not possible during games, but potentially useful to permit for puzzles, etc
-        Board board = setupBoard(b -> b.put("c5", WHITE_QUEEN));
+        Board board = BoardUtils.setupBoard(b -> b.put("c5", WHITE_QUEEN));
         assertFalse(board.getMoves(convert("c5")).isEmpty());
-    }
-
-    private static Board setupBoard(Consumer<Map<String, Piece>> setup) {
-        Map<String, Piece> schema = new HashMap<>();
-        setup.accept(schema);
-        Board board = new Board();
-        schema.entrySet().forEach(entry -> {
-            board.put(convert(entry.getKey()), entry.getValue());
-        });
-        return board;
-    }
-
-    private static void addKings(Map<String, Piece> schema, String whiteKing, String blackKing) {
-        schema.put(whiteKing, WHITE_KING);
-        schema.put(blackKing, BLACK_KING);
     }
 
     private static void assertBoard(Board board, Consumer<Map<String, Piece>> setup) {

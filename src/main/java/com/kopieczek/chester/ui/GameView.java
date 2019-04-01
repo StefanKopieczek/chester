@@ -1,19 +1,18 @@
 package com.kopieczek.chester.ui;
 
-import com.kopieczek.chester.core.Board;
+import com.kopieczek.chester.core.Game;
 import com.kopieczek.chester.core.Piece;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-public class BoardView extends JPanel {
+public class GameView extends JPanel {
     private static final Color WHITE_TILE = new Color(0xffeecc);
     private static final Color BLACK_TILE = new Color(0xcd853f);
     private static final Color MOVE_COLOR = new Color(0x8066b2ff, true);
@@ -23,17 +22,17 @@ public class BoardView extends JPanel {
     private static final int TILE_SIZE = PIECES.get(Piece.WHITE_PAWN).getHeight();
     private static final int EDGE_SIZE = TILE_SIZE * 8;
 
-    private Board board;
+    private Game game;
     private Integer selectedTile = null;
 
-    public BoardView(Board board) {
+    public GameView(Game game) {
         super();
-        this.board = board;
+        this.game = game;
         setPreferredSize(new Dimension(EDGE_SIZE, EDGE_SIZE));
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                BoardView.this.onClick(e);
+                GameView.this.onClick(e);
             }
         });
     }
@@ -59,9 +58,9 @@ public class BoardView extends JPanel {
     private void drawMoves(Graphics g) {
         if (selectedTile != null) {
             // Highlight moves for selected tile
-            Collection<Integer> moves = board.getMoves(selectedTile);
+            Collection<Integer> moves = game.getBoard().getMoves(selectedTile);
             for (int move : moves) {
-                Color color = board.get(move).map(piece -> THREAT_COLOR).orElse(MOVE_COLOR);
+                Color color = game.getBoard().get(move).map(piece -> THREAT_COLOR).orElse(MOVE_COLOR);
                 g.setColor(color);
                 int pixelX = getPixelXForCell(move);
                 int pixelY = getPixelYForCell(move);
@@ -78,7 +77,7 @@ public class BoardView extends JPanel {
 
     private void drawPieces(Graphics g) {
         for (int cell = 0; cell < 64; cell++) {
-            Optional<Piece> piece = board.get(cell);
+            Optional<Piece> piece = game.getBoard().get(cell);
             if (piece.isPresent()) {
                 int pixelX = getPixelXForCell(cell);
                 int pixelY = getPixelYForCell(cell);
@@ -96,16 +95,18 @@ public class BoardView extends JPanel {
         }
     }
 
-    private void trySelect(int target) {
-        if (board.get(target).isPresent()) {
-            selectedTile = target;
+    private void trySelect(int targetCell) {
+        Optional<Piece> target = game.getBoard().get(targetCell);
+        com.kopieczek.chester.core.Color targetColor = target.map(Piece::getColor).orElse(null);
+        if (targetColor == game.getActivePlayer()) {
+            selectedTile = targetCell;
         }
         repaint();
     }
 
     private void tryMove(int target) {
-        if (board.getMoves(selectedTile).contains(target)) {
-            board.move(selectedTile, target);
+        if (game.getBoard().getMoves(selectedTile).contains(target)) {
+            game.move(selectedTile, target);
         }
 
         selectedTile = null;

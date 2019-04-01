@@ -1,13 +1,14 @@
 package com.kopieczek.chester.ui;
 
 import com.kopieczek.chester.core.Board;
+import com.kopieczek.chester.core.Game;
 
 import javax.swing.*;
 
 public class ChesterUi extends JFrame {
     private ChesterUi() {
-        Board board = Board.standardSetup();
-        add(new BoardView(board));
+        Game game = new Game(Board.standardSetup());
+        add(new GameView(game));
     }
 
     public static void main(String[] args) {
