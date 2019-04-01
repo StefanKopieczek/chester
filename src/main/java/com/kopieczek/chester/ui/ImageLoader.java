@@ -13,8 +13,8 @@ import static com.kopieczek.chester.core.Piece.*;
 
 public class ImageLoader {
     private static List<Piece> ORDER_OF_PIECES = ImmutableList.of(
-            WHITE_QUEEN, WHITE_KING, WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_PAWN,
-            BLACK_QUEEN, BLACK_KING, BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_PAWN
+            BLACK_QUEEN, BLACK_KING, BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_PAWN,
+            WHITE_QUEEN, WHITE_KING, WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_PAWN
     );
 
     private static BufferedImage getPieceGrid() {
