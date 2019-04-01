@@ -1,8 +1,6 @@
 package com.kopieczek.chester.core;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 import static com.kopieczek.chester.core.GameState.*;
 
@@ -28,8 +26,11 @@ public class Game {
     }
 
     public GameState getState() {
+        return getState(board, activePlayer);
+    }
+
+    public static GameState getState(Board board, Color activePlayer) {
         Set<Integer> opponentThreats = board.getThreatenedSquares(activePlayer.inverse());
-        Function<Piece, Boolean> checkIfIsOurKing = piece -> piece.getColor() == activePlayer && piece.getType() == PieceType.KING;
         int ourKing = -1;
 
         List<Integer> ourMoves = new ArrayList<>();
