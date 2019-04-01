@@ -5,6 +5,9 @@ import com.kopieczek.chester.core.Piece;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.Map;
@@ -27,6 +30,12 @@ public class BoardView extends JPanel {
         super();
         this.board = board;
         setPreferredSize(new Dimension(EDGE_SIZE, EDGE_SIZE));
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                BoardView.this.onClick(e);
+            }
+        });
     }
 
     @Override
@@ -78,6 +87,31 @@ public class BoardView extends JPanel {
         }
     }
 
+    private void onClick(MouseEvent e) {
+        int targetCell = getCellForPixels(e.getX(), e.getY());
+        if (selectedTile == null) {
+            trySelect(targetCell);
+        } else {
+            tryMove(targetCell);
+        }
+    }
+
+    private void trySelect(int target) {
+        if (board.get(target).isPresent()) {
+            selectedTile = target;
+        }
+        repaint();
+    }
+
+    private void tryMove(int target) {
+        if (board.getMoves(selectedTile).contains(target)) {
+            board.move(selectedTile, target);
+        }
+
+        selectedTile = null;
+        repaint();
+    }
+
     private static int getPixelXForCell(int cell) {
         int file = cell % 8;
         return file * TILE_SIZE;
@@ -86,5 +120,11 @@ public class BoardView extends JPanel {
     private static int getPixelYForCell(int cell) {
         int rank = cell / 8;
         return (7 - rank) * TILE_SIZE;
+    }
+
+    private static int getCellForPixels(int pixelX, int pixelY) {
+        int file = pixelX / TILE_SIZE;
+        int rank = 7 - (pixelY) / TILE_SIZE;
+        return 8 * rank + file;
     }
 }
