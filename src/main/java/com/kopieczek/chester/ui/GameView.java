@@ -1,12 +1,14 @@
 package com.kopieczek.chester.ui;
 
 import com.kopieczek.chester.core.Game;
+import com.kopieczek.chester.core.GameState;
 import com.kopieczek.chester.core.Piece;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.Map;
@@ -43,6 +45,7 @@ public class GameView extends JPanel {
         drawGrid(g);
         drawMoves(g);
         drawPieces(g);
+        drawMessages(g);
     }
 
     private void drawGrid(Graphics g) {
@@ -86,12 +89,46 @@ public class GameView extends JPanel {
         }
     }
 
+    private void drawMessages(Graphics g) {
+        switch (game.getState()) {
+            case STALEMATE:
+                renderBanner(g, "Stalemate!");
+                break;
+            case WHITE_WINS:
+                renderBanner(g, "Checkmate – white wins!");
+                break;
+            case BLACK_WINS:
+                renderBanner(g, "Checkmate - black wins!");
+                break;
+        }
+    }
+
+    private void renderBanner(Graphics g, String message) {
+        Graphics2D g2d = (Graphics2D)g;
+
+        Font font = new Font("Arial", Font.BOLD, 40);
+        GlyphVector glyphVector = font.createGlyphVector(g2d.getFontRenderContext(), message);
+        int glyphWidth = glyphVector.getOutline().getBounds().width;
+        int paddingX = (EDGE_SIZE - glyphWidth) / 2;
+        Shape textShape = glyphVector.getOutline(paddingX, (float)EDGE_SIZE / 2 - 5);
+
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(1.5f));
+        g2d.draw(textShape);
+        g2d.setColor(Color.RED);
+        g2d.fill(textShape);
+    }
+
     private void onClick(MouseEvent e) {
-        int targetCell = getCellForPixels(e.getX(), e.getY());
-        if (selectedTile == null) {
-            trySelect(targetCell);
-        } else {
-            tryMove(targetCell);
+        if (game.getState() == GameState.PLAYING) {
+            int targetCell = getCellForPixels(e.getX(), e.getY());
+            if (selectedTile == null) {
+                trySelect(targetCell);
+            } else {
+                tryMove(targetCell);
+            }
         }
     }
 
