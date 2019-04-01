@@ -1,6 +1,8 @@
 package com.kopieczek.chester.core;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Board {
     private final Piece[] pieces = new Piece[64];
@@ -35,6 +37,8 @@ public class Board {
                 return getMovesForRook(cell, piece.getColor());
             case QUEEN:
                 return getMovesForQueen(cell, piece.getColor());
+            case KING:
+                return getMovesForKing(cell, piece.getColor());
             default:
                 throw new IllegalArgumentException("Unknown piece type " + piece.getType());
         }
@@ -198,6 +202,37 @@ public class Board {
         List<Integer> moves = new ArrayList<>();
         moves.addAll(getMovesForBishop(cell, ownColor));
         moves.addAll(getMovesForRook(cell, ownColor));
+        return moves;
+    }
+
+    private Collection<Integer> getMovesForKing(int cell, Color ownColor) {
+        int rank = cell / 8;
+        int file = cell % 8;
+        boolean includeLeft = file > 0;
+        boolean includeRight = file < 7;
+        boolean includeBottom = rank > 0;
+        boolean includeTop = rank < 7;
+
+        List<Integer> moves = new ArrayList<>();
+        if (includeLeft && includeTop)
+            moves.add(cell + 7);
+        if (includeTop)
+            moves.add(cell + 8);
+        if (includeTop && includeRight)
+            moves.add(cell + 9);
+        if (includeRight)
+            moves.add(cell + 1);
+        if (includeRight && includeBottom)
+            moves.add(cell - 7);
+        if (includeBottom)
+            moves.add(cell - 8);
+        if (includeLeft && includeBottom)
+            moves.add(cell - 9);
+        if (includeLeft)
+            moves.add(cell - 1);
+
+        Predicate<Integer> isValidMove = square -> isEmpty(square) || pieces[square].getColor() != ownColor;
+        moves = moves.stream().filter(isValidMove).collect(Collectors.toList());
         return moves;
     }
 

@@ -1131,6 +1131,150 @@ public class TestBoard {
                 "b6", "c5", "e3");
     }
 
+    @Test
+    public void test_white_king_move_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "c5", "h8");
+        });
+        assertMoves(board, "c5", "d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6");
+    }
+
+    @Test
+    public void test_white_king_move_on_file_a() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a5", "h8");
+        });
+        assertMoves(board, "a5", "b5", "b4", "a4", "a6", "b6");
+    }
+
+    @Test
+    public void test_white_king_move_on_file_h() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h5", "h8");
+        });
+        assertMoves(board, "h5", "h6", "h4", "g4", "g5", "g6");
+    }
+
+    @Test
+    public void test_white_king_move_on_rank_1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "c1", "h8");
+        });
+        assertMoves(board, "c1", "d1", "b1", "b2", "c2", "d2");
+    }
+
+    @Test
+    public void test_white_king_move_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "c8", "h8");
+        });
+        assertMoves(board, "c8", "d8", "d7", "c7", "b7", "b8");
+    }
+
+    @Test
+    public void test_white_king_move_from_a8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a8", "h8");
+        });
+        assertMoves(board, "a8", "b8", "b7", "a7");
+    }
+
+    @Test
+    public void test_white_king_can_take_black_pieces_from_all_angles() {
+        String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
+        Board board = setupBoard(b -> {
+            addKings(b, "c5", "h8");
+            for (String cell : adjacencies) {
+                b.put(cell, BLACK_KNIGHT);
+            }
+        });
+        assertMoves(board, "c5", adjacencies);
+    }
+
+    @Test
+    public void test_white_king_cannot_take_white_pieces() {
+        String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
+        Board board = setupBoard(b -> {
+            addKings(b, "c5", "h8");
+            for (String cell : adjacencies) {
+                b.put(cell, WHITE_KNIGHT);
+            }
+        });
+        assertMoves(board, "c5");
+    }
+
+    @Test
+    public void test_black_king_move_in_center_board() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "c5");
+        });
+        assertMoves(board, "c5", "d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6");
+    }
+
+    @Test
+    public void test_black_king_move_on_file_a() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "a5");
+        });
+        assertMoves(board, "a5", "b5", "b4", "a4", "a6", "b6");
+    }
+
+    @Test
+    public void test_black_king_move_on_file_h() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "h5");
+        });
+        assertMoves(board, "h5", "h6", "h4", "g4", "g5", "g6");
+    }
+
+    @Test
+    public void test_black_king_move_on_rank_1() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "c1");
+        });
+        assertMoves(board, "c1", "d1", "b1", "b2", "c2", "d2");
+    }
+
+    @Test
+    public void test_black_king_move_on_rank_8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "c8");
+        });
+        assertMoves(board, "c8", "d8", "d7", "c7", "b7", "b8");
+    }
+
+    @Test
+    public void test_black_king_move_from_a8() {
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "a8");
+        });
+        assertMoves(board, "a8", "b8", "b7", "a7");
+    }
+
+    @Test
+    public void test_black_king_can_take_white_pieces_from_all_angles() {
+        String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "c5");
+            for (String cell : adjacencies) {
+                b.put(cell, WHITE_KNIGHT);
+            }
+        });
+        assertMoves(board, "c5", adjacencies);
+    }
+
+    @Test
+    public void test_black_king_cannot_take_black_pieces() {
+        String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "c5");
+            for (String cell : adjacencies) {
+                b.put(cell, BLACK_KNIGHT);
+            }
+        });
+        assertMoves(board, "c5");
+    }
+
     private static Board setupBoard(Consumer<Map<String, Piece>> setup) {
         Map<String, Piece> schema = new HashMap<>();
         setup.accept(schema);
