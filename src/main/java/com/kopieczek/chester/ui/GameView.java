@@ -1,5 +1,8 @@
 package com.kopieczek.chester.ui;
 
+import com.kopieczek.chester.ai.Ai;
+import com.kopieczek.chester.ai.Move;
+import com.kopieczek.chester.ai.RandomAi;
 import com.kopieczek.chester.core.Game;
 import com.kopieczek.chester.core.GameState;
 import com.kopieczek.chester.core.Piece;
@@ -26,6 +29,7 @@ public class GameView extends JPanel {
 
     private Game game;
     private Integer selectedTile = null;
+    private Ai enemy = new RandomAi();
 
     public GameView(Game game) {
         super();
@@ -144,6 +148,10 @@ public class GameView extends JPanel {
     private void tryMove(int target) {
         if (game.getBoard().getMoves(selectedTile).contains(target)) {
             game.move(selectedTile, target);
+            selectedTile = null;
+            repaint();
+            Move aiMove = enemy.getMove(game.getBoard(), com.kopieczek.chester.core.Color.BLACK);
+            game.move(aiMove.from, aiMove.to);
         }
 
         selectedTile = null;
