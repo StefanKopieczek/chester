@@ -99,7 +99,7 @@ public class TestBoard {
             addKings(b, "a1", "h8");
         });
         System.out.println(board.getMoves(convert("d1")));
-        assertMoves(board, "d1");
+        assertNoMoves(board, "d1");
     }
 
     @Test
@@ -126,7 +126,7 @@ public class TestBoard {
             addKings(b, "a1", "h8");
             b.put("d8", WHITE_PAWN);
         });
-        assertMoves(board, "d8");
+        assertNoMoves(board, "d8");
     }
 
     @Test
@@ -153,7 +153,7 @@ public class TestBoard {
             addKings(b, "a2", "h8");
             b.put("a1", WHITE_PAWN);
         });
-        assertMoves(board, "a1");
+        assertNoMoves(board, "a1");
     }
 
     @Test
@@ -171,7 +171,7 @@ public class TestBoard {
             addKings(b, "a3", "h8");
             b.put("a2", WHITE_PAWN);
         });
-        assertMoves(board, "a2");
+        assertNoMoves(board, "a2");
     }
 
     @Test
@@ -180,7 +180,7 @@ public class TestBoard {
             addKings(b, "h8", "a2");
             b.put("a1", WHITE_PAWN);
         });
-        assertMoves(board, "a1");
+        assertNoMoves(board, "a1");
     }
 
     @Test
@@ -198,13 +198,13 @@ public class TestBoard {
             addKings(b, "h8", "a3");
             b.put("a2", WHITE_PAWN);
         });
-        assertMoves(board, "a2");
+        assertNoMoves(board, "a2");
     }
 
     @Test
     public void test_white_pawn_can_take_black_piece_from_rank_1_on_left() {
         Board board = setupBoard(b -> {
-            addKings(b, "a1", "h8");
+            addKings(b, "h1", "h8");
             b.put("c1", WHITE_PAWN);
             b.put("b2", BLACK_PAWN);
         });
@@ -307,7 +307,7 @@ public class TestBoard {
             addKings(b, "a1", "h8");
             b.put("d1", BLACK_PAWN);
         });
-        assertMoves(board, "d1");
+        assertNoMoves(board, "d1");
     }
 
     @Test
@@ -334,7 +334,7 @@ public class TestBoard {
             addKings(b, "a1", "h7");
             b.put("h8", BLACK_PAWN);
         });
-        assertMoves(board, "h8");
+        assertNoMoves(board, "h8");
     }
 
     @Test
@@ -352,7 +352,7 @@ public class TestBoard {
             addKings(b, "a1", "h6");
             b.put("h7", BLACK_PAWN);
         });
-        assertMoves(board, "h7");
+        assertNoMoves(board, "h7");
     }
 
     @Test
@@ -361,7 +361,7 @@ public class TestBoard {
             addKings(b, "h7", "a1");
             b.put("h8", BLACK_PAWN);
         });
-        assertMoves(board, "h8");
+        assertNoMoves(board, "h8");
     }
 
     @Test
@@ -379,7 +379,7 @@ public class TestBoard {
             addKings(b, "h6", "a1");
             b.put("h7", BLACK_PAWN);
         });
-        assertMoves(board, "h7");
+        assertNoMoves(board, "h7");
     }
 
     @Test
@@ -1005,7 +1005,7 @@ public class TestBoard {
     @Test
     public void test_black_rook_blocks_and_takes_2() {
         Board board = setupBoard(b -> {
-            addKings(b, "a1", "g8");
+            addKings(b, "a1", "g7");
             b.put("d4", BLACK_ROOK);
             b.put("d3", BLACK_PAWN);
             b.put("b4", WHITE_KNIGHT);
@@ -1208,15 +1208,33 @@ public class TestBoard {
     }
 
     @Test
-    public void test_white_king_can_take_black_pieces_from_all_angles() {
-        String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
+    public void test_white_king_can_take_black_pieces_from_all_angles_1() {
+        String[] targets = new String[] {"d5", "d4", "b4", "b5", "b6", "d6"};
         Board board = setupBoard(b -> {
             addKings(b, "c5", "h8");
-            for (String cell : adjacencies) {
-                b.put(cell, BLACK_KNIGHT);
-            }
+            for (String cell : targets) {
+                b.put(cell, BLACK_PAWN);
+            };
         });
-        assertMoves(board, "c5", adjacencies);
+
+        for (String target : targets) {
+            assertTrue("King should be able to take " + target, hasMove(board, "c5", target));
+        }
+    }
+
+    @Test
+    public void test_white_king_can_take_black_pieces_from_all_angles_2() {
+        String[] targets = new String[] {"c4", "c6"};
+        Board board = setupBoard(b -> {
+            addKings(b, "c5", "h8");
+            for (String cell : targets) {
+                b.put(cell, BLACK_PAWN);
+            };
+        });
+
+        for (String target : targets) {
+            assertTrue("King should be able to take " + target, hasMove(board, "c5", target));
+        }
     }
 
     @Test
@@ -1228,7 +1246,7 @@ public class TestBoard {
                 b.put(cell, WHITE_KNIGHT);
             }
         });
-        assertMoves(board, "c5");
+        assertNoMoves(board, "c5");
     }
 
     @Test
@@ -1280,15 +1298,33 @@ public class TestBoard {
     }
 
     @Test
-    public void test_black_king_can_take_white_pieces_from_all_angles() {
-        String[] adjacencies = new String[] {"d5", "d4", "c4", "b4", "b5", "b6", "c6", "d6"};
+    public void test_black_king_can_take_white_pieces_from_all_angles_1() {
+        String[] targets = new String[] {"d5", "d4", "b4", "b5", "b6", "d6"};
         Board board = setupBoard(b -> {
             addKings(b, "h8", "c5");
-            for (String cell : adjacencies) {
-                b.put(cell, WHITE_KNIGHT);
-            }
+            for (String cell : targets) {
+                b.put(cell, WHITE_PAWN);
+            };
         });
-        assertMoves(board, "c5", adjacencies);
+
+        for (String target : targets) {
+            assertTrue("King should be able to take " + target, hasMove(board, "c5", target));
+        }
+    }
+
+    @Test
+    public void test_black_king_can_take_white_pieces_from_all_angles_2() {
+        String[] targets = new String[] {"c4", "c6"};
+        Board board = setupBoard(b -> {
+            addKings(b, "h8", "c5");
+            for (String cell : targets) {
+                b.put(cell, WHITE_PAWN);
+            };
+        });
+
+        for (String target : targets) {
+            assertTrue("King should be able to take " + target, hasMove(board, "c5", target));
+        }
     }
 
     @Test
@@ -1300,7 +1336,83 @@ public class TestBoard {
                 b.put(cell, BLACK_KNIGHT);
             }
         });
-        assertMoves(board, "c5");
+        assertNoMoves(board, "c5");
+    }
+
+    @Test
+    public void test_king_cannot_move_into_check() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("b8", BLACK_ROOK);
+        });
+        assertMoves(board, "a1", "a2");
+    }
+
+    @Test
+    public void test_other_pieces_cannot_move_independently_during_check() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h6", WHITE_ROOK);
+            b.put("b3", BLACK_KNIGHT);
+        });
+        assertNoMoves(board, "b3");
+    }
+
+    @Test
+    public void test_other_pieces_may_move_to_block_check() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("h1", BLACK_QUEEN);
+            b.put("f5", WHITE_ROOK);
+        });
+        assertMoves(board, "f5", "f1");
+    }
+
+    @Test
+    public void test_other_pieces_may_move_to_take_attacker_during_check() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "g8");
+            b.put("h1", BLACK_QUEEN);
+            b.put("h3", WHITE_ROOK);
+        });
+        assertMoves(board, "h3", "h1");
+    }
+
+    @Test
+    public void test_other_pieces_may_block_or_take_attacker_during_check() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a8", "g8");
+            b.put("h1", BLACK_BISHOP);
+            b.put("h2", WHITE_ROOK);
+        });
+        assertMoves(board, "h2", "h1", "g2");
+    }
+
+    @Test
+    public void test_king_may_not_move_into_range_of_other_king() {
+        // Specifically want to test this to make sure recursive king-threat is handled correctly
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "a3");
+        });
+        assertFalse(hasMove(board, "a1", "a2"));
+    }
+
+    @Test
+    public void test_pinned_piece_cannot_move() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "h8");
+            b.put("c3", WHITE_BISHOP);
+            b.put("f6", BLACK_ROOK);
+        });
+
+        assertNoMoves(board, "f6");
+    }
+
+    @Test
+    public void test_moves_are_allowed_with_no_king_on_board() {
+        // Obviously not possible during games, but potentially useful to permit for puzzles, etc
+        Board board = setupBoard(b -> b.put("c5", WHITE_QUEEN));
+        assertFalse(board.getMoves(convert("c5")).isEmpty());
     }
 
     private static Board setupBoard(Consumer<Map<String, Piece>> setup) {
@@ -1351,6 +1463,11 @@ public class TestBoard {
         Arrays.sort(expectedMoves);
         Arrays.sort(actualMoves);
         assertArrayEquals(expectedMoves, actualMoves);
+    }
+
+    private static void assertNoMoves(Board b, String cell) {
+        // Passing an empty varargs is equivalent to asserting there are no moves
+        assertMoves(b, cell);
     }
 
     private static boolean hasMove(Board b, String from, String to) {

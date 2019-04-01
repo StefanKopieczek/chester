@@ -27,6 +27,12 @@ public class Board {
 
     // Visible for testing
     Collection<Integer> getMovesForOccupiedCell(int cell, Piece piece) {
+        return getMovesForOccupiedCellWithoutThreatChecks(cell, piece).stream()
+                .filter(move -> !movePutsSelfInCheck(cell, move))
+                .collect(Collectors.toList());
+    }
+
+    private Collection<Integer> getMovesForOccupiedCellWithoutThreatChecks(int cell, Piece piece) {
         switch (piece.getType()) {
             case PAWN:
                 return getMovesForPawn(cell, piece.getColor());
@@ -235,6 +241,40 @@ public class Board {
         Predicate<Integer> isValidMove = square -> isEmpty(square) || pieces[square].getColor() != ownColor;
         moves = moves.stream().filter(isValidMove).collect(Collectors.toList());
         return moves;
+    }
+
+    private boolean movePutsSelfInCheck(int from, int to) {
+        Piece mover = pieces[from];
+        Piece maybeTaken = pieces[to];
+
+        // Temporarily put the board into the position in question to check the threats
+        pieces[from] = null;
+        pieces[to] = mover;
+
+        Predicate<Integer> containsOwnKing = cell ->
+                !isEmpty(cell) &&
+                pieces[cell].getColor() == mover.getColor() &&
+                pieces[cell].getType() == PieceType.KING;
+
+        boolean result = getThreatenedSquares(mover.getColor().inverse())
+                    .stream()
+                    .anyMatch(containsOwnKing);
+
+        // Return the board to its original position
+        pieces[from] = mover;
+        pieces[to] = maybeTaken;
+
+        return result;
+    }
+
+    private Set<Integer> getThreatenedSquares(Color color) {
+        Set<Integer> result = new HashSet<>();
+        for (int cell = 0; cell < 64; cell++) {
+            if (!isEmpty(cell) && pieces[cell].getColor() == color) {
+                result.addAll(getMovesForOccupiedCellWithoutThreatChecks(cell, pieces[cell]));
+            }
+        }
+        return result;
     }
 
     private boolean isEmpty(int cell) {
