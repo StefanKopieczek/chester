@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 public class BasicMinMax implements Ai {
     private static final int DEPTH = 3;
@@ -26,15 +27,8 @@ public class BasicMinMax implements Ai {
             Optional<Piece> maybeTaken = board.get(move.to);
             board.move(move.from, move.to);
 
-            GameState state = guessState(board, color);
             int score;
-            if (state == GameState.WHITE_WINS) {
-                score = (color == Color.WHITE) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-            } else if (state == GameState.BLACK_WINS) {
-                score = (color == Color.BLACK) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-            } else if (state == GameState.STALEMATE) {
-                score = -5;
-            } else if (depth == 0) {
+            if (depth == 0) {
                 score = applyHeuristic(board, color);
             } else {
                 score = -minmax(board, color.inverse(), depth - 1).score;
@@ -46,7 +40,24 @@ public class BasicMinMax implements Ai {
         }
 
         candidates.sort(Comparator.comparing(moveWithScore -> -moveWithScore.score));
-        return candidates.get(0);
+
+        if (candidates.size() == 0) {
+            // No moves possible, so the game must be over. Score the end state.
+            GameState state = Game.getState(board, color);
+            int score = 0;
+            if (state.equals(GameState.WHITE_WINS)) {
+                score = (color == Color.WHITE) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            } else if (state.equals(GameState.BLACK_WINS)) {
+                score = (color == Color.BLACK) ? Integer.MIN_VALUE : Integer.MIN_VALUE;
+            } else if (state.equals(GameState.STALEMATE)) {
+                score = -5;
+            } else {
+                throw new IllegalStateException("No candidate moves but not in any end state. Programmer error?");
+            }
+            return new MoveWithScore(null, score);
+        } else {
+            return candidates.get(0);
+        }
     }
 
     // Hack hack hack
