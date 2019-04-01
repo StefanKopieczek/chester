@@ -294,7 +294,7 @@ public class Board {
         return result;
     }
 
-    private Set<Integer> getThreatenedSquares(Color color) {
+    public Set<Integer> getThreatenedSquares(Color color) {
         Set<Integer> result = new HashSet<>();
         for (int cell = 0; cell < 64; cell++) {
             if (!isEmpty(cell) && pieces[cell].getColor() == color) {
