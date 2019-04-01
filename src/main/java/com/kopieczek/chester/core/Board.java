@@ -25,7 +25,8 @@ public class Board {
                         .orElse(Collections.emptyList());
     }
 
-    private Collection<Integer> getMovesForOccupiedCell(int cell, Piece piece) {
+    // Visible for testing
+    Collection<Integer> getMovesForOccupiedCell(int cell, Piece piece) {
         switch (piece.getType()) {
             case PAWN:
                 return getMovesForPawn(cell, piece.getColor());

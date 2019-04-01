@@ -912,12 +912,26 @@ public class TestBoard {
     public void test_white_rook_blocks_and_takes() {
         Board board = setupBoard(b -> {
             addKings(b, "a1", "g8");
-            b.put("h4", WHITE_ROOK);
-            b.put("h3", BLACK_PAWN);
-            b.put("f4", WHITE_KNIGHT);
-            b.put("h5", WHITE_BISHOP);
+            b.put("d4", WHITE_ROOK);
+            b.put("d3", BLACK_PAWN);
+            b.put("b4", WHITE_KNIGHT);
+            b.put("d5", WHITE_BISHOP);
+            b.put("f4", BLACK_QUEEN);
         });
-        assertMoves(board, "h4", "h3", "g4");
+        assertMoves(board, "d4", "d3", "c4", "e4", "f4");
+    }
+
+    @Test
+    public void test_white_rook_blocks_and_takes_2() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "g8");
+            b.put("d4", WHITE_ROOK);
+            b.put("d3", WHITE_PAWN);
+            b.put("b4", BLACK_KNIGHT);
+            b.put("d5", BLACK_BISHOP);
+            b.put("f4", WHITE_QUEEN);
+        });
+        assertMoves(board, "d4", "c4", "b4", "d5", "e4");
     }
 
     @Test
@@ -979,12 +993,26 @@ public class TestBoard {
     public void test_black_rook_blocks_and_takes() {
         Board board = setupBoard(b -> {
             addKings(b, "a1", "g8");
-            b.put("h4", BLACK_ROOK);
-            b.put("h3", WHITE_PAWN);
-            b.put("f4", BLACK_KNIGHT);
-            b.put("h5", BLACK_BISHOP);
+            b.put("d4", BLACK_ROOK);
+            b.put("d3", WHITE_PAWN);
+            b.put("b4", BLACK_KNIGHT);
+            b.put("d5", BLACK_BISHOP);
+            b.put("f4", WHITE_QUEEN);
         });
-        assertMoves(board, "h4", "h3", "g4");
+        assertMoves(board, "d4", "d3", "c4", "e4", "f4");
+    }
+
+    @Test
+    public void test_black_rook_blocks_and_takes_2() {
+        Board board = setupBoard(b -> {
+            addKings(b, "a1", "g8");
+            b.put("d4", BLACK_ROOK);
+            b.put("d3", BLACK_PAWN);
+            b.put("b4", WHITE_KNIGHT);
+            b.put("d5", WHITE_BISHOP);
+            b.put("f4", BLACK_QUEEN);
+        });
+        assertMoves(board, "d4", "c4", "b4", "d5", "e4");
     }
 
     @Test
